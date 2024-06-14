@@ -7,11 +7,13 @@ package rkcommon
 
 import (
 	"fmt"
+	"os"
+	"path"
+	"path/filepath"
+
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
-	"os"
-	"path"
 )
 
 var (
@@ -44,7 +46,7 @@ const (
 // gin:
 //   - port: 1949
 //     commonService:
-//       enabled: true
+//     enabled: true
 //
 // We can override values in example-boot.yaml file as bellow:
 //
@@ -76,7 +78,7 @@ func GetBootConfigPath(configFilePath string) string {
 	}
 
 	// join the path with current working directory if user provided path is relative path
-	if !path.IsAbs(configFilePath) {
+	if !filepath.IsAbs(configFilePath) {
 		wd, err := os.Getwd()
 
 		if err != nil {
